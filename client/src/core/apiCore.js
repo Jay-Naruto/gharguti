@@ -1,8 +1,34 @@
 import { API } from '../config';
 import queryString from 'query-string';
 
-export const getProducts = (sortBy) => {
-  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+import axios from 'axios'
+
+const instance =axios.create({
+    baseURL:"http://localhost:9000"
+});
+
+
+// export const DisplayAll =()=>fetch(`${API}/display-all`,{
+//     method:'GET',
+//     headers:{
+//         "Accept":"application/json",
+//         "Content-Type":"application/json",
+       
+//     }
+// })
+
+export const DriverSignUp =(add)=>fetch('http://localhost:5000/api/display/new',{
+    method:'POST',
+    headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json",
+       
+    },
+    body:JSON.stringify(add)
+})
+
+export const getProducts = () => {
+  return fetch(`http://localhost:5000/api/products`, {
     method: 'GET',
   })
     .then((response) => {
@@ -10,7 +36,15 @@ export const getProducts = (sortBy) => {
     })
     .catch((err) => console.log(err));
 };
-
+export const getProductsssss = () => {
+  return fetch(`http://localhost:5000/api/display-all`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
 export const getCategories = () => {
   return fetch(`${API}/categories`, {
     method: 'GET',
@@ -21,6 +55,16 @@ export const getCategories = () => {
     .catch((err) => console.log(err));
 };
 
+export const updateRate=(data)=>{
+  return fetch(`${API}/ratings-add`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+}
 export const getFilteredProducts = (skip, limit, filters = {}) => {
   const data = {
     limit,

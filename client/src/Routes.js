@@ -17,6 +17,8 @@ import Profile from './user/Profile';
 import ManageProducts from './admin/ManageProducts';
 import UpdateProduct from './admin/UpdateProduct';
 import NotFound from './core/NotFound';
+import Map from './core/Map';
+import Stars from './core/Star';
 
 const Routes = () => {
   return (
@@ -32,6 +34,10 @@ const Routes = () => {
         <AdminRoute path='/create/product' component={AddProduct} exact />
         <Route path='/product/:productId' component={Product} exact />
         <Route path='/cart' component={Cart} exact />
+        <Route path='/map' component={Map} exact />
+        <Route path='/rate' component={Stars} exact />
+
+
         <AdminRoute path='/admin/orders' component={Orders} exact />
         <PrivateRoute path='/profile/:userId' component={Profile} exact />
         <AdminRoute path='/admin/products' component={ManageProducts} exact />

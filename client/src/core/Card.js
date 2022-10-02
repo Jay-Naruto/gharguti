@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect,Link } from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment';
 
@@ -17,7 +17,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
+
 
 import { addItem, updateItem, removeItem } from './cartHelpers';
 
@@ -67,6 +67,7 @@ const Card = ({
 }) => {
   const [redirect, setRedirect] = useState(false);
   const [count, setCount] = useState(product.count);
+  const [show,setShow]=useState(0)
 
   const showViewButton = (showViewProductButton) => {
     return (
@@ -100,7 +101,9 @@ const Card = ({
       )
     );
   };
+const addProductsBtn=()=>{
 
+}
   const showStock = (quantity) => {
     return quantity > 0 ? (
       <span className='badge badge-primary badge-pill'>In Stock </span>
@@ -126,6 +129,7 @@ const Card = ({
               <span className='input-group-text'>Adjust Quantity</span>
             </div>
             <input
+            step="0.5"
               type='number'
               className='form-control'
               value={count}
@@ -190,14 +194,24 @@ const Card = ({
       <CssBaseline />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={12}>
+        {
+                  product.five > product.one && product.five > product.two && product.five > product.three && product.five > product.four ?
+                   <img className='crown' src='./asset/king.png' alt=''/>
+                   :
+                   <img  className='crown2' src='./asset/king.png' alt=''/>
+                }
           <CardM className={classes.card}>
             {shouldRedirect(redirect)}
-            <ShowImage item={product} url='product' />
+            
+            <ShowImage item={product}  url='product' />
             <CardContent className={classes.cardContent}>
               <Typography gutterBottom variant='h5' component='h2'>
                 {product.name}
               </Typography>
-              <Typography className={classes.productDescription}>{product.description.substring(0, 100)}</Typography>
+              
+               
+              
+              <h2 className={classes.productDescription}>{product.description.substring(0, 100)}</h2>
               <p className='black-10'>Price: ${product.price}</p>
               <p className='black-9'>
                 Category: {product.category && product.category.name}{' '}
@@ -208,9 +222,18 @@ const Card = ({
               {showStock(product.quantity)}
               <br></br>
               <span>
-                {showViewButton(showViewProductButton)}
-                {showAddToCartBtn(showAddToCartButton)}
-                {showRemoveButton(showRemoveProductButton)}
+                {/* {showViewButton(showViewProductButton)} */}
+                {/* {showAddToCartBtn(showAddToCartButton)}
+                 */}
+                 <Button color='secondary'>
+                  <NavLink to={{
+                    pathname:"/cart",
+                  
+                  data:product}}>
+                  Add to cart
+                  </NavLink>
+                 </Button>
+                {/* {showRemoveButton(showRemoveProductButton)} */}
               </span>
               {showCartUpdateOptions(cartUpdate)}
             </CardContent>

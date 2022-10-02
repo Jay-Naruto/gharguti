@@ -7,6 +7,8 @@ const cors = require('cors');
 const path = require('path');
 const expressValidator = require('express-validator');
 require('dotenv').config();
+
+const Cards =require("./schema/productSchema.js")
 // import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
@@ -22,7 +24,7 @@ const app = express();
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      process.env.MONGOURI,
+      "mongodb+srv://root:root@cluster0.bd5hnz0.mongodb.net/vyaapaar?retryWrites=true&w=majority",
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -65,6 +67,63 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 5000;
+app.get("/api/display-all",(req,res)=>{
+  Cards.find((err,data)=>{
+      if(err)
+      {
+          res.status(500).send(err.message)
+      }
+      else{
+          res.status(200).send(data)
+      }
+  })
+})
+
+app.post("/api/display/new",(req,res)=>{
+  const dbCard=req.body;
+  Cards.create(dbCard,(err,data)=>{
+      if(err)
+      {
+          res.status(500).send(err.message)
+      }
+      else{
+          res.status(201).send(data)
+      }
+  })
+})
+
+app.put('/api/ratings-add', (req, res) => {
+  console.log(req.body.rate)
+  const id = req.body.data._id
+
+  let  query ;
+  
+ 
+if ( req.body.rate === 1)
+{
+   query = { $set: {one: 1 + req.body.data.one } }
+
+
+}
+else if(req.body.rate === 2)
+{
+  query = { $set: {two: 1 + req.body.data.two } }
+}
+else if(req.body.rate === 3)
+{
+  query = { $set: {three: 1 + req.body.data.three} }
+}
+else if(req.body.rate === 4)
+{
+  query = { $set: {four: 1 + req.body.data.four } }
+}
+else if(req.body.rate === 5)
+{
+  query = { $set: {five: 1 + req.body.data.five } }
+}
+  Cards.findByIdAndUpdate(id, query, {new: true, useFindAndModify: false})
+  .then()
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

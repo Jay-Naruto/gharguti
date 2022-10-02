@@ -1,18 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
-import { getProducts } from './apiCore';
+import { DriverSignUp, getProducts, getProductsssss } from './apiCore';
 import Card from './Card';
+import svg from  "./option.svg"
 import Search from './Search';
 import 'fontsource-roboto';
 import Copyright from './Copyright';
+import { API } from '../config';
+import axios from 'axios';
 
 const Home = () => {
+  const [people,setPeople]=useState([])
+  
+    useEffect(()=>{
+        const fetchData= async ()=>{
+         const fetchBody=await fetch('http://localhost:5000/api/display-all');
+         console.log(fetchBody);
+      
+        }
+        const addDriverInfo=async()=>{
+          await DriverSignUp({
+            photo:"hdhhd.jpg",
+              name:"to",
+              description:"jfjf",
+              quantity:46,
+              price:6,
+              category:'Rotis',
+              stars:[1,2,3,4,3]
+          })
+            }
+// addDriverInfo()     
+
+            setTimeout(()=>{
+              // fetchData();   
+
+            },5000)
+    },[])
   const [productsBySell, setProductsBySell] = useState([]);
   const [productsByArrival, setProductsByArrival] = useState([]);
   const [error, setError] = useState([]);
 
   const loadProductsBySell = () => {
-    getProducts('sold').then((data) => {
+    getProductsssss().then((data) => {
       if (data.error) {
         setError(data.error);
       } else {
@@ -32,21 +61,35 @@ const Home = () => {
   };
 
   useEffect(() => {
-    loadProductsByArrival();
-    loadProductsBySell();
+    // loadProductsByArrival();
+    setTimeout(()=>{
+      loadProductsBySell();
+
+    },5000)
+    
   }, []);
+  // console.log(people)
 
   return (
     <Layout
-      title='Home page'
-      description='MERN E-commerce App'
+     
+      description='Ghar-guti'
       className='container-fluid'
     >
-      <Search />
+     <div>
+                <img width="100%" height="600px"  src={svg} alt=""/>
+            </div>
       <div className='row'>
         <div className='col-md-1'></div>
-        <div className='col-md-10'>
-          <h2 className='mb-2'>New Arrivals</h2>
+        <div className='col-md-11'>
+           
+            {/* {
+              people ?
+              <div>
+                    {people.name}
+              </div>:null
+            }
+          */}
           <div className='row'>
             {productsByArrival.map((product, i) => (
               <div key={i} className='col-xl-4 col-lg-6 col-md-6 col-sm-12'>
@@ -55,19 +98,23 @@ const Home = () => {
             ))}
           </div>
 
-          <h2 className='mb-2 mt-4'>Best Sellers</h2>
+       
           <div className='row'>
             {productsBySell.map((product, i) => (
-              <div key={i} className='col-xl-4 col-lg-6 col-md-6 col-sm-12'>
+              <div style={{display:'flex',flexDirection:'column'}}>
+             {/* <h6>{product.description}</h6> */}
+             <br></br>
+              <div key={i} style={{display:'flex',flexDirection:'row',justifyContent:'space-evenly',width:'100%'}}>
                 <Card product={product} />
+              </div>
               </div>
             ))}
           </div>
         </div>
-        <div className='col-md-1'></div>
+        {/* <div className='col-md-1'></div> */}
       </div>
 
-      <Copyright />
+      {/* <Copyright /> */}
     </Layout>
   );
 };

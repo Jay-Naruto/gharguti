@@ -28,18 +28,15 @@ const productSchema = new mongoose.Schema(
     quantity: {
       type: Number,
     },
-    sold: {
-      type: Number,
-      default: 0,
-    },
+    
     photo: {
       data: Buffer,
       contentType: String,
     },
-    shipping: {
-      required: false,
-      type: Boolean,
-    },
+    stars:{
+      type: [[Number]]
+    }
+   
   },
   { timestamps: true }
 );
