@@ -108,7 +108,14 @@ BIG HEADER
   border-width: 0;
 }
 
-
+.row{
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  /* text-align: center; */
+}
 /*----------------------------
 Rating Star Widget Style
 -----------------------------*/

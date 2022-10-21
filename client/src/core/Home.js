@@ -77,7 +77,7 @@ const Home = () => {
       className='container-fluid'
     >
      <div>
-                <img width="100%" height="600px"  src={svg} alt=""/>
+                <img width="100%" height="600px"  src="./svg2.svg" alt=""/>
             </div>
       <div className='row'>
         <div className='col-md-1'></div>
