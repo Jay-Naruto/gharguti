@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     height: '100%',
+    width:'400px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -212,13 +213,9 @@ const addProductsBtn=()=>{
                
               
               <h2 className={classes.productDescription}>{product.description.substring(0, 100)}</h2>
-              <p className='black-10'>Price: ${product.price}</p>
-              <p className='black-9'>
-                Category: {product.category && product.category.name}{' '}
-              </p>{' '}
-              <p className='black-8'>
-                Added on {moment(product.createdAt).fromNow()}{' '}
-              </p>
+              <p className='black-10'>Price: Rs.{product.price}</p>
+             {' '}
+            
               {showStock(product.quantity)}
               <br></br>
               <span>
@@ -229,7 +226,8 @@ const addProductsBtn=()=>{
                   <NavLink to={{
                     pathname:"/cart",
                   
-                  data:product}}>
+                  data:product
+                  }}>
                   Add to cart
                   </NavLink>
                  </Button>

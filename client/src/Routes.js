@@ -33,7 +33,7 @@ const Routes = () => {
         <AdminRoute path='/create/category' component={AddCategory} exact />
         <AdminRoute path='/create/product' component={AddProduct} exact />
         <Route path='/product/:productId' component={Product} exact />
-        <Route path='/cart' component={Cart} exact />
+        <PrivateRoute path='/cart' component={Cart} exact />
         <Route path='/map' component={Map} exact />
         <Route path='/rate' component={Stars} exact />
 

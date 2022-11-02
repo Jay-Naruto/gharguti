@@ -36,6 +36,8 @@ export const getProducts = () => {
     })
     .catch((err) => console.log(err));
 };
+
+
 export const getProductsssss = () => {
   return fetch(`http://localhost:5000/api/display-all`, {
     method: 'GET',
@@ -45,6 +47,8 @@ export const getProductsssss = () => {
     })
     .catch((err) => console.log(err));
 };
+
+
 export const getCategories = () => {
   return fetch(`${API}/categories`, {
     method: 'GET',
